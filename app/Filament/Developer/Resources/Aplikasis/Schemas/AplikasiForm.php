@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\Pakets\Schemas;
+namespace App\Filament\Developer\Resources\Aplikasis\Schemas;
 
 use Filament\Schemas\Schema;
 
-class PaketForm
+class AplikasiForm
 {
     public static function configure(Schema $schema): Schema
     {

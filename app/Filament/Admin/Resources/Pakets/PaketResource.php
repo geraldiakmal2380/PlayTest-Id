@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\Pakets;
+namespace App\Filament\Admin\Resources\Pakets;
 
-use App\Filament\Resources\Pakets\Pages\CreatePaket;
-use App\Filament\Resources\Pakets\Pages\EditPaket;
-use App\Filament\Resources\Pakets\Pages\ListPakets;
-use App\Filament\Resources\Pakets\Schemas\PaketForm;
-use App\Filament\Resources\Pakets\Tables\PaketsTable;
+use App\Filament\Admin\Resources\Pakets\Pages\CreatePaket;
+use App\Filament\Admin\Resources\Pakets\Pages\EditPaket;
+use App\Filament\Admin\Resources\Pakets\Pages\ListPakets;
+use App\Filament\Admin\Resources\Pakets\Schemas\PaketForm;
+use App\Filament\Admin\Resources\Pakets\Tables\PaketsTable;
 use App\Models\Paket;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -18,7 +18,7 @@ class PaketResource extends Resource
 {
     protected static ?string $model = Paket::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Cube;
 
     protected static ?string $recordTitleAttribute = 'desc';
 
