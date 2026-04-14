@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Pakets\Pages;
+namespace App\Filament\Admin\Resources\Pakets\Pages;
 
-use App\Filament\Resources\Pakets\PaketResource;
+use App\Filament\Admin\Resources\Pakets\PaketResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
