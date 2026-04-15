@@ -34,7 +34,7 @@ class PembayaransTable
                     ->label('Transfer Receipt'),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
                         'success' => 'success',
                         'failed' => 'danger',
@@ -60,7 +60,7 @@ class PembayaransTable
                             $record->misi->update(['status' => 'active']);
                         }
                     })
-                    ->visible(fn ($record) => $record->status === 'pending'),
+                    ->visible(fn($record) => $record->status === 'pending'),
                 Action::make('reject')
                     ->label('Reject')
                     ->color('danger')
@@ -72,7 +72,7 @@ class PembayaransTable
                             $record->misi->update(['status' => 'failed']);
                         }
                     })
-                    ->visible(fn ($record) => $record->status === 'pending'),
+                    ->visible(fn($record) => $record->status === 'pending'),
                 DeleteAction::make(),
             ])
             ->toolbarActions([
