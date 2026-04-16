@@ -3,7 +3,6 @@
 namespace App\Filament\Developer\Resources\Misis;
 
 use App\Filament\Developer\Resources\Misis\Pages\CreateMisi;
-use App\Filament\Developer\Resources\Misis\Pages\EditMisi;
 use App\Filament\Developer\Resources\Misis\Pages\ListMisis;
 use App\Filament\Developer\Resources\Misis\Schemas\MisiForm;
 use App\Filament\Developer\Resources\Misis\Tables\MisisTable;
@@ -44,7 +43,6 @@ class MisiResource extends Resource
         return [
             'index' => ListMisis::route('/'),
             'create' => CreateMisi::route('/create'),
-            'edit' => EditMisi::route('/{record}/edit'),
         ];
     }
 }

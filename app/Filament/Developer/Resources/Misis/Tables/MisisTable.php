@@ -21,6 +21,18 @@ class MisisTable
                     ->searchable(),
                 TextColumn::make('link_aplikasi')
                     ->searchable(),
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'pending' => 'gray',
+                        'waiting' => 'warning',
+                        'open' => 'success',
+                        'rejected' => 'danger',
+                        default => 'secondary',
+                    }),
+                TextColumn::make('kapasitas')
+                    ->label('Kapasitas')
+                    ->formatStateUsing(fn ($state) => $state . '/20'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -34,7 +46,7 @@ class MisisTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                //
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

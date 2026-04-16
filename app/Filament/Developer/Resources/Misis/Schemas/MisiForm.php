@@ -29,6 +29,10 @@ class MisiForm
                 TextInput::make('link_aplikasi'),
                 Textarea::make('instruksi')
                     ->columnSpanFull(),
+                TextInput::make('kapasitas')
+                    ->numeric()
+                    ->default(20)
+                    ->required(),
                 Hidden::make('point')
                     ->default(0),
             ]);
