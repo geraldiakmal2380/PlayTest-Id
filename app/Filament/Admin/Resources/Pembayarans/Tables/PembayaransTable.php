@@ -35,9 +35,9 @@ class PembayaransTable
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'pending' => 'warning',
-                        'success' => 'success',
-                        'failed' => 'danger',
+                        'waiting' => 'gray',
+                        'accepted' => 'success',
+                        'rejected' => 'danger',
                         default => 'secondary',
                     }),
                 TextColumn::make('created_at')
@@ -48,34 +48,39 @@ class PembayaransTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 Action::make('accept')
-                    ->label('Accept')
+                    ->label('Accepted')
                     ->color('success')
                     ->icon('heroicon-o-check-circle')
                     ->requiresConfirmation()
                     ->action(function ($record) {
-                        $record->update(['status' => 'success']);
+                        $record->update([
+                            'status' => 'accepted',
+                            'id_admin' => auth()->id(),
+                        ]);
                         if ($record->misi) {
-                            $record->misi->update(['status' => 'active']);
+                            $record->misi->update(['status' => 'open']);
                         }
                     })
-                    ->visible(fn($record) => $record->status === 'pending'),
+                    ->visible(fn($record) => $record->status === 'waiting'),
                 Action::make('reject')
-                    ->label('Reject')
+                    ->label('Rejected')
                     ->color('danger')
                     ->icon('heroicon-o-x-circle')
                     ->requiresConfirmation()
                     ->action(function ($record) {
-                        $record->update(['status' => 'failed']);
+                        $record->update([
+                            'status' => 'rejected',
+                            'id_admin' => auth()->id(),
+                        ]);
                         if ($record->misi) {
-                            $record->misi->update(['status' => 'failed']);
+                            $record->misi->update(['status' => 'rejected']);
                         }
                     })
-                    ->visible(fn($record) => $record->status === 'pending'),
-                DeleteAction::make(),
+                    ->visible(fn($record) => $record->status === 'waiting'),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

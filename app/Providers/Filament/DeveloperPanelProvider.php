@@ -31,7 +31,7 @@ class DeveloperPanelProvider extends PanelProvider
             ->path('developer')
             ->login()
             ->brandName('PlayTest ID')
-            ->brandLogo(fn () => view('filament.developer.logo'))
+            ->brandLogo(fn() => view('filament.developer.logo'))
             ->colors([
                 'primary' => Color::Indigo,
             ])
@@ -43,7 +43,7 @@ class DeveloperPanelProvider extends PanelProvider
                             ->icon('heroicon-o-home')
                             ->activeIcon('heroicon-s-home')
                             ->url('/developer')
-                            ->isActive(fn () => request()->is('developer')),
+                            ->isActive(fn() => request()->is('developer')),
                         MobileBottomNavItem::make('Inbox')
                             ->icon('heroicon-o-inbox')
                             ->url('/developer/inbox')
@@ -57,21 +57,6 @@ class DeveloperPanelProvider extends PanelProvider
                 'panels::head.end',
                 fn(): string => Blade::render("@vite('resources/css/app.css')"),
             )
-            ->navigationItems([
-                NavigationItem::make('My Apps')
-                    ->icon('heroicon-o-squares-2x2')
-                    ->url('#'),
-                NavigationItem::make('New Test Case')
-                    ->icon('heroicon-o-plus-circle')
-                    ->url('#'),
-                NavigationItem::make('Settings')
-                    ->icon('heroicon-o-cog-6-tooth')
-                    ->url('#'),
-                NavigationItem::make('Support')
-                    ->icon('heroicon-o-question-mark-circle')
-                    ->url('#')
-                    ->sort(100),
-            ])
             ->discoverResources(in: app_path('Filament/Developer/Resources'), for: 'App\Filament\Developer\Resources')
             ->discoverPages(in: app_path('Filament/Developer/Pages'), for: 'App\Filament\Developer\Pages')
             ->pages([

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('misi', function (Blueprint $table) {
@@ -17,6 +16,7 @@ return new class extends Migration
             $table->text('instruksi')->nullable();
             $table->string('status')->default('pending');
             $table->integer('point')->default(0);
+            $table->integer('kapasitas')->default(0);
             $table->timestamps();
         });
     }

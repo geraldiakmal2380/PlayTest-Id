@@ -18,6 +18,7 @@ class Misi extends Model
         'instruksi',
         'status',
         'point',
+        'kapasitas',
     ];
 
     public function user(): BelongsTo

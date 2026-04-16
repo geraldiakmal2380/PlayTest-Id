@@ -19,7 +19,13 @@ class PembayaransTable
                 TextColumn::make('paket.desc')
                     ->label('Paket'),
                 TextColumn::make('status')
-                    ->badge(),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'waiting' => 'gray',
+                        'accepted' => 'success',
+                        'rejected' => 'danger',
+                        default => 'secondary',
+                    }),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),

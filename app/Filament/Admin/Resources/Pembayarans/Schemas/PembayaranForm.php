@@ -27,9 +27,9 @@ class PembayaranForm
                     ->required(),
                 Select::make('status')
                     ->options([
-                        'pending' => 'Pending',
-                        'success' => 'Success',
-                        'failed' => 'Failed',
+                        'waiting' => 'Waiting',
+                        'accepted' => 'Accepted',
+                        'rejected' => 'Rejected',
                     ])
                     ->required(),
             ]);
