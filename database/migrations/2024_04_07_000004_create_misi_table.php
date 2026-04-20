@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->foreignId('id_user')->constrained('users')->cascadeOnDelete();
             $table->foreignId('id_paket')->constrained('paket')->cascadeOnDelete();
             $table->string('nama_aplikasi');
+            $table->string('logo');
             $table->string('link_aplikasi')->nullable();
             $table->text('instruksi')->nullable();
             $table->string('status')->default('pending');
