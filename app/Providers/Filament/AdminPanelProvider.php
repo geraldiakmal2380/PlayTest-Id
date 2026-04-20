@@ -7,6 +7,8 @@ use App\Filament\Auth\Pages\RequestResetPassword;
 use App\Filament\Auth\Pages\ResetPassword;
 use App\Filament\Admin\Pages\AdminDashboard;  
 use App\Filament\Admin\Pages\ManajemenPengguna;
+use App\Filament\Admin\Pages\ManajemenKampanye;
+use App\Filament\Admin\Pages\TransaksiKeuangan;
 use Filament\Http\Middleware\Authenticate;  
 use Filament\Http\Middleware\AuthenticateSession;  
 use Filament\Http\Middleware\DisableBladeIconComponents;  
@@ -53,7 +55,7 @@ class AdminPanelProvider extends PanelProvider
                     900 => '30  58  138',  
                     950 => '23  37  84',  
                 ],  
-                'warning' => Color::Amber,  // badge Pending tetap amber  
+                'warning' => Color::Amber,  
             ])  
   
             // ── Sidebar Navigation ────────────────────────────  
@@ -68,18 +70,21 @@ class AdminPanelProvider extends PanelProvider
   
                              NavigationItem::make('Pengguna')  
                                  ->icon('heroicon-o-users')  
-                                 ->badge(fn () => \App\Models\User::count())  
+                                 ->badge(fn () => \App\Models\User::where('role', '!=', \App\Enums\UserRole::admin)->count())  
                                  ->isActiveWhen(fn () => request()->is('admin/manajemen-pengguna*'))
                                  ->url(fn () => ManajemenPengguna::getUrl()),  
   
                              NavigationItem::make('Kampanye')  
-                                 ->icon('heroicon-o-paper-airplane')  
-                                 ->badge(\App\Models\Paket::count())
-                                 ->url(fn () => \App\Filament\Admin\Resources\Pakets\PaketResource::getUrl()),  
+                                 ->icon('heroicon-o-clipboard-document-list')  
+                                 ->badge(fn () => \App\Models\Misi::count())
+                                 ->isActiveWhen(fn () => request()->is('admin/manajemen-kampanye*'))
+                                 ->url(fn () => ManajemenKampanye::getUrl()),  
   
-                             NavigationItem::make('Transaksi')  
+                             NavigationItem::make('Transaksi & Keuangan')  
                                  ->icon('heroicon-o-currency-dollar')  
-                                 ->url(fn () => \App\Filament\Admin\Resources\Pembayarans\PembayaranResource::getUrl()),  
+                                 ->badge(14)
+                                 ->isActiveWhen(fn () => request()->is('admin/transaksi-keuangan*'))
+                                 ->url(fn () => TransaksiKeuangan::getUrl()),  
                         ]),  
   
                     NavigationGroup::make('Sistem')  
@@ -89,7 +94,7 @@ class AdminPanelProvider extends PanelProvider
                                 ->url('#'),  
   
                             NavigationItem::make('Log Aktivitas')  
-                                ->icon('heroicon-o-document-text')  
+                                ->icon('heroicon-o-clock')  
                                 ->url('#'),  
                         ]),  
                 ]);  
@@ -99,6 +104,8 @@ class AdminPanelProvider extends PanelProvider
             ->pages([  
                 AdminDashboard::class,  
                 ManajemenPengguna::class,
+                ManajemenKampanye::class,
+                TransaksiKeuangan::class,
             ])  
             ->discoverPages(  
                 in: app_path('Filament/Admin/Pages'),  
