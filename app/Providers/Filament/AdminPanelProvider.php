@@ -9,6 +9,7 @@ use App\Filament\Admin\Pages\AdminDashboard;
 use App\Filament\Admin\Pages\ManajemenPengguna;
 use App\Filament\Admin\Pages\ManajemenKampanye;
 use App\Filament\Admin\Pages\TransaksiKeuangan;
+use App\Filament\Admin\Pages\ManajemenPaket;  
 use Filament\Http\Middleware\Authenticate;  
 use Filament\Http\Middleware\AuthenticateSession;  
 use Filament\Http\Middleware\DisableBladeIconComponents;  
@@ -85,6 +86,10 @@ class AdminPanelProvider extends PanelProvider
                                  ->badge(14)
                                  ->isActiveWhen(fn () => request()->is('admin/transaksi-keuangan*'))
                                  ->url(fn () => TransaksiKeuangan::getUrl()),  
+                                 NavigationItem::make('Manajemen Paket')  
+    ->icon('heroicon-o-squares-2x2')  
+    ->url(fn () => ManajemenPaket::getUrl())  
+    ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.manajemen-paket')),  
                         ]),  
   
                     NavigationGroup::make('Sistem')  
@@ -106,6 +111,7 @@ class AdminPanelProvider extends PanelProvider
                 ManajemenPengguna::class,
                 ManajemenKampanye::class,
                 TransaksiKeuangan::class,
+                ManajemenPaket::class,  
             ])  
             ->discoverPages(  
                 in: app_path('Filament/Admin/Pages'),  
