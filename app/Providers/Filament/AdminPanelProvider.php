@@ -6,6 +6,7 @@ use App\Filament\Auth\Pages\Login;
 use App\Filament\Auth\Pages\RequestResetPassword;
 use App\Filament\Auth\Pages\ResetPassword;
 use App\Filament\Admin\Pages\AdminDashboard;  
+use App\Filament\Admin\Pages\ManajemenPengguna;
 use Filament\Http\Middleware\Authenticate;  
 use Filament\Http\Middleware\AuthenticateSession;  
 use Filament\Http\Middleware\DisableBladeIconComponents;  
@@ -67,17 +68,18 @@ class AdminPanelProvider extends PanelProvider
   
                             NavigationItem::make('Pengguna')  
                                 ->icon('heroicon-o-users')  
-                                ->badge(24)  
-                                ->url('#'),  
+                                ->badge(fn () => \App\Models\User::count())  
+                                ->isActiveWhen(fn () => request()->routeIs('filament.admin.pages.manajemen-pengguna'))
+                                ->url(fn () => ManajemenPengguna::getUrl()),  
   
                             NavigationItem::make('Kampanye')  
                                 ->icon('heroicon-o-paper-airplane')  
-                                ->badge(8)  
-                                ->url('#'),  
+                                ->badge(\App\Models\Paket::count())
+                                ->url(fn () => \App\Filament\Admin\Resources\Pakets\PaketResource::getUrl()),  
   
                             NavigationItem::make('Transaksi')  
                                 ->icon('heroicon-o-currency-dollar')  
-                                ->url('#'),  
+                                ->url(fn () => \App\Filament\Admin\Resources\Pembayarans\PembayaranResource::getUrl()),  
                         ]),  
   
                     NavigationGroup::make('Sistem')  
@@ -96,14 +98,15 @@ class AdminPanelProvider extends PanelProvider
             // ── Pages & Widgets ───────────────────────────────  
             ->pages([  
                 AdminDashboard::class,  
+                 ManajemenPengguna::class,
             ])  
             ->discoverPages(  
                 in: app_path('Filament/Admin/Pages'),  
                 for: 'App\\Filament\\Admin\\Pages'  
             )  
             ->discoverResources(  
-                in: app_path('Filament/Resources'),  
-                for: 'App\\Filament\\Resources'  
+                in: app_path('Filament/Admin/Resources'),  
+                for: 'App\\Filament\\Admin\\Resources'  
             )  
             ->widgets([  
                 Widgets\AccountWidget::class,  
