@@ -14,6 +14,7 @@ class Misi extends Model
         'id_user',
         'id_paket',
         'nama_aplikasi',
+        'logo',
         'link_aplikasi',
         'instruksi',
         'status',
